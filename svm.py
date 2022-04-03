@@ -5,15 +5,15 @@ from sklearn import svm
 
 #SVM: Support Vector Machine
 dataset = pandas.read_csv("survey_dataset_clean.csv")
+target = dataset['game_categorical'].values
+dataset = dataset.drop(['game_categorical'], axis = 1)
+data = dataset.values
 
-target = dataset.iloc[:, 15].values
-data = dataset.iloc[:, 5:12].values
-
-r2_scores, accuracy_scores, confusion_matrices, multilabel_confusion_matrices = kfold_template.run_kfold(data, target, 4, svm.SVC(kernel = "linear"), 1, 1, 1)
+r2_scores, accuracy_scores, confusion_matrices, confusion_2x2_matrices = kfold_template.run_kfold(data, target, 4, svm.SVC(kernel = "linear"), 1, 1, 1)
 
 print(r2_scores)
 print(accuracy_scores)
 for confusion_matrix in confusion_matrices:
 	print(confusion_matrix)
-for multilabel_confusion_matrix in multilabel_confusion_matrices:
-	print(multilabel_confusion_matrix)
+for confusion_2x2_matrix in confusion_2x2_matrices:
+	print(confusion_2x2_matrix)
