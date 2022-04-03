@@ -3,11 +3,8 @@ import os
 
 dataset = pandas.read_csv("survey_dataset.csv")
 
-##creating categorical variables for the variables containing multiple discrete values and a dummy variable for gender
+##creating categorical variables for the variables containing multiple discrete values
 codes, uniques = pandas.factorize(dataset['game'])
-codes1, uniques1 = pandas.factorize(dataset['horoscope'])
-codes2, uniques2 = pandas.factorize(dataset['region'])
-codes3, uniques3 = pandas.factorize(dataset['gender'])
 
 #print(codes)
 #print(uniques)

@@ -2,6 +2,7 @@ import pandas
 import kfold_template
 from sklearn.ensemble import RandomForestClassifier
 
+##Random Forest
 dataset = pandas.read_csv("survey_dataset_clean.csv")
 dataset = pandas.get_dummies(dataset)
 
@@ -13,12 +14,23 @@ target = dataset['game_categorical'].values
 data_raw = dataset.drop('game_categorical', axis = 1)
 data = data_raw.values
 
-feature_list = data_raw.columns
-
-
 print(target)
 print(data)
 
 machine = RandomForestClassifier(criterion = "gini", max_depth = 10, n_estimators = 300 ,bootstrap = True, max_features = "auto")
-results = kfold_template.run_kfold(data, target, 4, machine, 0, 0, 1)
-print(results)
+r2_scores, accuracy_scores, confusion_matrices, confusion_2x2_matrices = kfold_template.run_kfold(data, target, 4, machine, 0, 0, 1)
+print(r2_scores)
+print(accuracy_scores)
+for confusion_matrix in confusion_matrices:
+	print(confusion_matrix)
+for confusion_2x2_matrix in confusion_2x2_matrices:
+	print(confusion_2x2_matrix)
+
+##Predicting the games from 'new_customers_dataset.csv' using the machine built
+validation = pandas.read_csv("new_customers_dataset.csv")
+validation = dataset.drop(validation[validation['age'] < 0].index)
+validation = validation.drop(['personality8'], axis = 1)
+validation = pandas.get_dummies(validation)
+
+prediction = machine.predict(validation)
+print(validation)
