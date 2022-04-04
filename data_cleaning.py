@@ -1,18 +1,18 @@
 import pandas
-import os
-
+from matplotlib import pyplot
+ 
 dataset = pandas.read_csv("survey_dataset.csv")
 
 ##creating categorical variables for the variables containing multiple discrete values
 codes, uniques = pandas.factorize(dataset['game'])
 
-#print(codes)
-#print(uniques)
-
-#print(codes1)
-#print(uniques1)
-
 dataset['game_categorical'] = codes + 1
+print(set(dataset['game_categorical']))
+print(set(uniques))
+
+pyplot.scatter(dataset['personality1'], dataset['personality2'], c = dataset['game_categorical'])
+pyplot.savefig("scatter.png")
+pyplot.close()
 
 ##removing the outlier values for age
 
@@ -40,3 +40,8 @@ dataset = dataset.drop(['game_Heroes of the Storm'], axis = 1)
 
 dataset.to_csv("survey_dataset_clean.csv") 
 
+##cleaning the 'new_customers_dataset.csv' as well
+dataset2 = pandas.read_csv("new_customers_dataset.csv")
+dataset2 = pandas.get_dummies(dataset2)
+dataset2 = dataset2.drop(['personality8'], axis = 1)
+dataset2.to_csv("new_customers_dataset_clean.csv")
