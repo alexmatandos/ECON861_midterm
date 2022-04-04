@@ -1,0 +1,6 @@
+# ECON861_midterm
+
+1) Packages required: pandas, Matplotlib, and sklearn.
+2) First, run 'data_cleaning.py' to correct both 'survey_dataset.csv' and 'new_customers_dataset.csv' for outliers in 'age', creation of categorical values for the dependent variable ('game_categorical), creation of dummies for the categorical independent variables for 'region' and 'gender', and removing 'personality8' due to low average effect on the observations. The corrected datasets to be used in the machine learning models will be 'survey_dataset_clean.csv' and 'new_customers_dataset_clean.csv'.
+3) Then, run in whichever order you prefer either 'svm.py' or 'random_forest.py' to train the models with the training dataset 'survey_dataset_clean.py' and generate both confusion matrices and accuracy scores to gauge which one is better. The latter model, due to its better results in the training phase, means that is the one to be used for prediction of the individual's favorite game in the dataset 'new_customers_dataset_clean.csv'. Thus, the dataset with the forecasted is generated with 'new_customers_dataset_clean_forecast.py'.
+4) Additionally, the file 'REPORT.docx' offers a concise explaination regarding the selection of the models and results.
